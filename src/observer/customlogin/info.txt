@@ -1,0 +1,45 @@
+例子1：使用观察者模式实现自定义的登录控件
+LoginBean具体目标类，他代表的是登录控件
+	-addLoginEventListner(LoginEventListner lel)观察者的注册方法
+	-fireLoginEvent()通知观察者的方法
+	
+LoginEventListener是抽象观察者：（validateLogin(LoginEvent event)响应方法）
+	+LoginValidatorA是实现了LoginEventListener的具体观察者
+	+LoginValidatorB是实现了LoginEventListener的具体观察者
+LoginEvent类，是用于LoginBean向LoginEventListner传递数据的对象
+
+
+流程：
+LoginBean有变化，此处是事件触发
+  ---->调用fireLoginEvent方法通知
+     ---->在fireLoginEvent方法里调用观察者对象的validateLogin方法，同时传递LoginEvent对象。
+       ----->观察者对象响应loginBean的通知，进行响应的操作
+          ---->结束。
+
+提示和注意：
+别被LoginEvent和LoginEventListener误导了以为是什么事件，虽然实质是这样的
+，但是我们要清楚其实LoginEventListener是观察者，它的名字可以是更形象的
+LoginEventObeserver也可以是其他没所谓，它就是一个观察者。
+而LoginEvent就是一个普通的JavaBean对象而已，就是用来存储信息和传递信息到观察
+者对象的作用，别被名字误导了或者说别弄乱了。
+
+该模式的典型应用：Java的事件委托机制和MVC
+
+
+观察者模式定义对象间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象
+皆得到通知并被自动更新。观察者模式又被叫做发布-订阅模式、模型-视图模式、源=监听器模式或者
+从属者模式。
+
+优点：
+   1.可以实现表现层和数据逻辑层的分离，定义了稳定的消息更新传递机制。
+   2.观察者模式支持广播通信（1-N）一对多
+   3.增加具体的观察者无需修改源码。
+缺点：
+   1.如果一个观察目标对应很多观察者时，将所有的观察者通知会花费很多时间
+   2.如果观察者和观察者目标之间有循环依赖的话，会导致系统崩溃。
+   3。观察者无法知道目标对象怎么样发生变化的，只是知道发生了变化。
+   
+适用的环境：
+   1.一个抽象模型有两个方面，其中一个方面依赖另一个方面
+   2.一个对象的改变导致其他一个或者多个对象也发生改变。
+   3.一个对象必须通知其他对象，并不知道这些对象是谁。
