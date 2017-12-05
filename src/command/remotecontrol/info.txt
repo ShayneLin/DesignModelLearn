@@ -1,0 +1,29 @@
+例子1：用命令模式实现遥控器：
+Controller类作为一个Invoker的调用者类
+AbstractCommand抽象的命令类
+    +具体实现类TVOpenCommand
+    +具体实现类TVCloseCommand
+    +具体实现类TVChangeCommand
+Television类是命令的接收者
+注意：
+Command的具体实现类需要依赖Television,并且要在创建是就注入，
+不能留给Controller注入否则实现不了解耦和封装。因为那样的话
+客户端依然需要关心接收者的创建，显然与我们期望的不一样。
+
+
+例子2：用命令模式实现功能键设置
+FunctionButton类作为一个Invoker的调用者类
+Command抽象的命令类
+    +具体实现类ExitCommand
+    +具体实现类HelpCommand
+两个命令接收者或者处理者：
+   SystemExitClass用于ExitCommand的实现，简单说ExiteCommand依赖于SystemExitClass
+   DisplayHelpClass用于HelpCommand的实现，简单说HelpCommand依赖于DisplayHelpClass
+
+
+命令模式的优点：
+   1.降低系统的耦合度。（请求者和调用者之间不存在引用）
+   2.新命令很容易加入系统中
+   3.可以方便的实现对请求的Undo和Redo（保留命令对象的状态）
+缺点：
+   导致某些系统会有过多的具体命令类
